@@ -1,0 +1,267 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="title">
+		PDC - Colaborador
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="row">
+			<div class="col-xl-12 col-md-12 mb-12 pb-2">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Informações</h6>
+					</div>
+					<div class="card-body">
+						<p>Logo abaixo, você poderá manipular os colaboradores usados no sistema.</p>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-xl-12 col-md-12 mb-12 pb-2">
+				<div class="card shadow mb-4">
+					<div class="card-body">
+						<div class="col-xl-12 col-md-12 mb-12 pb-2 text-center">
+							<a href="javascript:{}" onclick="$('#createModal').modal('show')" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm my-4" title="Criar">
+								Criar Novo Colaborador
+								<i class="pi pi-plus"></i>
+							</a>
+						</div>
+						<div class="table-responsive">
+							<h:form id="dataTableForm">
+						        <p:dataTable styleClass="table table-bordered" var="collaborator" value="#{collaboratorMBean.all}">
+						            <p:column headerText="Nome">
+						                <h:outputText value="#{collaborator.name}" />
+						            </p:column>
+						            <p:column headerText="Email">
+						                <h:outputText value="#{collaborator.email}" />
+						            </p:column>
+						            <p:column headerText="Permissão">
+						                <h:outputText value="#{collaborator.permission.description}" />
+						            </p:column>
+						            <p:column headerText="Área de Atuação">
+						                <h:outputText value="#{collaborator.actuationArea.description}" />
+						            </p:column>
+						            <p:column headerText="Editar">
+										<p:commandButton action="#{collaboratorMBean.setCollaborator(collaborator)}" update="editForm" oncomplete="$('#editModal').modal('show')" icon="pi pi-pencil" styleClass="ui-button-primary">
+											<f:actionListener binding="#{collaboratorMBean.setPermissionId(collaborator.permission.id)}" />
+											<f:actionListener binding="#{collaboratorMBean.setActuationAreaId(collaborator.actuationArea.id)}" />
+										</p:commandButton>
+						            </p:column>
+						            <p:column headerText="Excluir">
+										<p:commandButton action="#{collaboratorMBean.setCollaborator(collaborator)}" update="deleteForm" oncomplete="$('#deleteModal').modal('show')" icon="pi pi-trash" styleClass="ui-button-danger">
+											<f:actionListener binding="#{collaboratorMBean.setPermissionId(collaborator.permission.id)}" />
+											<f:actionListener binding="#{collaboratorMBean.setActuationAreaId(collaborator.actuationArea.id)}" />
+										</p:commandButton>
+						            </p:column>
+						            <p:column headerText="Status dos Objetivos">
+										<p:commandButton action="#{collaboratorMBean.setCollaborator(collaborator)}" update="checkpointStatusForm" oncomplete="$('#checkpointStatusModal').modal('show')" icon="pi pi-search" styleClass="ui-button-primary">
+											<f:actionListener binding="#{collaboratorMBean.setPermissionId(collaborator.permission.id)}" />
+											<f:actionListener binding="#{collaboratorMBean.setActuationAreaId(collaborator.actuationArea.id)}" />
+										</p:commandButton>
+						            </p:column>
+						        </p:dataTable>
+							</h:form>
+						</div>
+					</div>
+       			</div>
+				<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Criar novo nível de atuação</h5>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h:form id="createForm">
+									<p:messages id="validateCreateFormMessage" styleClass="custom"/>
+									<div class="form-group">
+										<p:outputLabel value="Nome: " for="name"/>
+										<p:inputText id="name" styleClass="form-control form-control-user" placeholder="Informe o nome" value="#{collaboratorMBean.collaborator.name}" required="true" requiredMessage="O nome é obrigatório">
+											<p:ajax event="change" update="validateCreateFormMessage validationNameMessage" />
+										</p:inputText>
+										<p:message for="name" id="validationNameMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel value="Email: " for="email"/>
+										<p:inputText id="email" styleClass="form-control form-control-user" placeholder="Informe o email" value="#{collaboratorMBean.collaborator.email}" required="true" requiredMessage="O email é obrigatório">
+											<p:ajax event="blur" update="validateCreateFormMessage validationEmailMessage"/>
+										</p:inputText>
+										<p:message for="email" id="validationEmailMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel value="Senha: " for="password"/>
+										<p:password id="password" styleClass="form-control form-control-user" placeholder="Informe a senha" value="#{collaboratorMBean.collaborator.password}" required="true" requiredMessage="A senha é obrigatória">
+											<p:ajax event="blur" update="validateCreateFormMessage validationPasswordMessage"/>
+										</p:password>
+										<p:message for="password" id="validationPasswordMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel for="permissionSelect" value="Permissão"/>
+										<br />
+						                <p:selectOneMenu id="permissionSelect" value="#{collaboratorMBean.permissionId}" appendTo="@this" required="true">
+						                    <f:selectItems value="#{permissionMBean.all}" var="permission" itemValue="#{permission.id}" itemLabel="#{permission.description}" />
+											<p:ajax event="change" update="validateCreateFormMessage createForm" />
+						                </p:selectOneMenu>
+										<p:message for="permissionSelect" id="validationPermissionMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel for="actuationAreaSelect" value="Área de Atuação"/>
+										<br />
+						                <p:selectOneMenu id="actuationAreaSelect" value="#{collaboratorMBean.actuationAreaId}" appendTo="@this" required="true">
+						                    <f:selectItems value="#{actuationAreaMBean.all}" var="actuationArea" itemValue="#{actuationArea.id}" itemLabel="#{actuationArea.description}" />
+											<p:ajax event="change" update="validateCreateFormMessage createForm" />
+						                </p:selectOneMenu>
+										<p:message for="actuationAreaSelect" id="validationActuationAreaMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group text-center">
+										<button class="btn btn-secondary mr-1" type="button" data-dismiss="modal">Cancelar</button>
+										<p:commandButton action="#{collaboratorMBean.create}" update="validateCreateFormMessage createForm dataTableForm" value="Salvar" styleClass="btn btn-primary ml-1" />
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Editar informações</h5>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h:form id="editForm">
+									<p:messages id="validateUpdateFormMessage" styleClass="custom"/>
+									<div class="form-group">
+										<p:outputLabel value="Nome: " for="name"/>
+										<p:inputText id="name" styleClass="form-control form-control-user" placeholder="Informe o nome" value="#{collaboratorMBean.collaborator.name}" required="true" requiredMessage="O nome é obrigatório">
+											<p:ajax event="change" update="validateUpdateFormMessage validationNameMessage" />
+										</p:inputText>
+										<p:message for="name" id="validationNameMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel value="Email: " for="email"/>
+										<p:inputText id="email" styleClass="form-control form-control-user" placeholder="Informe o email" value="#{collaboratorMBean.collaborator.email}" required="true" requiredMessage="O email é obrigatório">
+											<p:ajax event="blur" update="validateUpdateFormMessage validationEmailMessage"/>
+										</p:inputText>
+										<p:message for="email" id="validationEmailMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel value="Senha: " for="password"/>
+										<p:password id="password" styleClass="form-control form-control-user" placeholder="Informe a senha" value="#{collaboratorMBean.collaborator.password}" required="true" requiredMessage="A senha é obrigatória">
+											<p:ajax event="blur" update="validateUpdateFormMessage validationPasswordMessage"/>
+										</p:password>
+										<p:message for="password" id="validationPasswordMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel for="permissionSelect" value="Permissão"/>
+										<br />
+						                <p:selectOneMenu id="permissionSelect" value="#{collaboratorMBean.permissionId}" appendTo="@this" required="true">
+						                    <f:selectItems value="#{permissionMBean.all}" var="permission" itemValue="#{permission.id}" itemLabel="#{permission.description}" />
+											<p:ajax event="change" update="validateUpdateFormMessage createForm" />
+						                </p:selectOneMenu>
+										<p:message for="permissionSelect" id="validationPermissionMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel for="actuationAreaSelect" value="Área de Atuação"/>
+										<br />
+						                <p:selectOneMenu id="actuationAreaSelect" value="#{collaboratorMBean.actuationAreaId}" appendTo="@this" required="true">
+						                    <f:selectItems value="#{actuationAreaMBean.all}" var="actuationArea" itemValue="#{actuationArea.id}" itemLabel="#{actuationArea.description}" />
+											<p:ajax event="change" update="validateUpdateFormMessage createForm" />
+						                </p:selectOneMenu>
+										<p:message for="actuationAreaSelect" id="validationActuationAreaMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group text-center">
+										<button class="btn btn-secondary mr-1" type="button" data-dismiss="modal">Cancelar</button>
+										<p:commandButton action="#{collaboratorMBean.update}" update="validateUpdateFormMessage editForm dataTableForm" value="Salvar" styleClass="btn btn-primary ml-1" />
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Excluir informações</h5>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h:form id="deleteForm">
+									<p:messages id="validateDeleteFormMessage" styleClass="custom"/>
+									<div class="form-group">
+										<p>Deseja mesmo excluir?</p>
+									</div>
+									<div class="form-group text-center">
+										<button class="btn btn-secondary mr-1" type="button" data-dismiss="modal">Cancelar</button>
+										<p:commandButton action="#{collaboratorMBean.delete}" update="validateDeleteFormMessage deleteForm dataTableForm" value="Excluir" styleClass="btn btn-primary ml-1" />
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="checkpointStatusModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
+					<div class="modal-dialog modal-xl" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Status dos Objetivos</h5>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h:form id="checkpointStatusForm">
+									<div class="card shadow mb-4">
+										<div class="card-header py-3">
+											<h6 class="m-0 font-weight-bold text-primary">Níveis de atuação</h6>
+										</div>
+										<div class="card-body">
+									        <p:tabView var="careerPath" value="#{careerPathMBean.getAllByCollaboratorId(collaboratorMBean.collaborator.id)}">
+									            <p:tab title="#{careerPath.actuationLevel.description}">
+										            <p:dataTable styleClass="table table-bordered" var="checkpointStatus" value="#{careerPath.checkpointStatuses}">
+											            <p:column headerText="Objetivo">
+											                <h:outputText value="#{checkpointStatus.checkpoint.description}" />
+											            </p:column>
+											            <p:column headerText="Status">
+											            	<p:chip rendered="#{checkpointStatus.progress == 'NOT_DONE'}" label="Não concluído" icon="pi pi-times" styleClass="p-mr-2 bg-danger text-white"/>
+											            	<p:chip rendered="#{checkpointStatus.progress == 'IN_PROGRESS'}" label="Em progresso" icon="pi pi-clock" styleClass="p-mr-2 bg-warning text-white"/>
+											            	<p:chip rendered="#{checkpointStatus.progress == 'DONE'}" label="Concluído" icon="pi pi-check" styleClass="p-mr-2 bg-success text-white"/>
+											            </p:column>
+											            <p:column headerText="Atualizar Status">
+															<p:commandButton action="#{checkpointStatusMBean.updateProgress(checkpointStatus.id, 'NOT_DONE')}" update="checkpointStatusForm" title="Não concluído" icon="pi pi-times" styleClass="ui-button-danger text-white mx-1" />
+															<p:commandButton action="#{checkpointStatusMBean.updateProgress(checkpointStatus.id, 'IN_PROGRESS')}" update="checkpointStatusForm" title="Em progresso" icon="pi pi-clock" styleClass="ui-button-warning text-white mx-1" />
+															<p:commandButton action="#{checkpointStatusMBean.updateProgress(checkpointStatus.id, 'DONE')}" update="checkpointStatusForm" title="Concluído" icon="pi pi-check" styleClass="ui-button-success text-white mx-1" />
+											            </p:column>
+											        </p:dataTable>
+									            </p:tab>
+									        </p:tabView>
+										</div>
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

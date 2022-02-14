@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+body {
+	background-color: #4e73df;
+    background-image: linear-gradient(180deg,#4e73df 10%,#224abe 100%);
+	background-size: cover;
+}
+
+.ui-messages.custom .ui-messages-info .ui-messages-info-icon, .ui-messages.custom .ui-messages-error .ui-messages-error-icon, .ui-messages.custom .ui-messages-error .ui-messages-fatal, .ui-messages.custom .ui-messages-fatal .ui-messages-error-icon, .ui-messages.custom .ui-messages-fatal .ui-messages-fatal {
+	float: right;
+}
+
+.ui-message.custom.ui-message-info, .ui-message.custom.ui-message-error, .ui-message.custom.ui-message-fatal {
+	margin: 4px 0px;
+}
+
+.ui-commandlink.custom:hover, .ui-link.custom:hover {
+	text-decoration: none;
+	cursor: pointer;
+	opacity: 0.7;
+	color: #ffff;
+}
+
+.ui-commandlink.custom, .ui-link.custom {
+	color: #ffff;
+}
+
+.ui-steps.custom .ui-steps-item.ui-state-highlight .ui-steps-number, .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-number {
+    color: #495057;
+    background-color: #ffffff;
+}
+
+.ui-steps.custom .ui-steps-item.ui-state-highlight .ui-steps-title, .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-title, .ui-steps.custom .ui-steps-item.ui-state-highlight .ui-steps-number {
+    color: #495057;
+    font-weight: 600;
+}
+
+.ui-steps.custom .ui-ody steps-item:not(.ui-state-highlight), .ui-steps.custom .ui-steps-item:not(.ui-state-highlight) {
+	opacity: 1;
+}
+
+.ui-steps.custom ul {
+    flex-direction: column;
+}
+
+.ui-steps.custom::before {
+	border-top: none;
+	border-left: 1px solid #dee2e6;
+    height: 100%;
+    top: 0;
+    left: 50%;
+}

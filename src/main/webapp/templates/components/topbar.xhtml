@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+		<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+			<i class="pi pi-bars"></i>
+		</button>
+
+		<ul class="navbar-nav ml-auto">
+			<div class="topbar-divider d-none d-sm-block"></div>
+
+			<li class="nav-item dropdown no-arrow">
+				<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false">
+					<span class="mr-2 d-none d-lg-inline text-gray-600 small">
+						<h:outputText value="#{session.getAttribute('userNameLogged')}" id="userNameLogged">
+							<p:autoUpdate/>
+						</h:outputText> 
+					</span>
+					<p:graphicImage styleClass="img-profile rounded-circle" value="https://ui-avatars.com/api/?background=254dc0&amp;color=fff&amp;name=#{session.getAttribute('userNameLogged')}">
+						<p:autoUpdate/>
+					</p:graphicImage>
+				</a>
+				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+					<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+						<i class="pi pi-sign-out mr-2 text-gray-400"></i>
+						Sair
+					</a>
+				</div>
+			</li>
+		</ul>
+	</nav>
+</h:body>
+
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/template.xhtml">
+	<ui:define name="title">
+		PDC - Plano de Carreira
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="row">
+			<div class="col-xl-12 col-md-12 mb-12 pb-2">
+				<div class="card shadow mb-4">
+					<div class="card-header py-3">
+						<h6 class="m-0 font-weight-bold text-primary">Informações</h6>
+					</div>
+					<div class="card-body">
+						<p>Logo abaixo, você poderá relacionar os colaboradores existentes aos níveis de carreira cadastrados.</p>
+					</div>
+				</div>
+			</div>
+	
+			<div class="col-xl-12 col-md-12 mb-12 pb-2">
+				<div class="card shadow mb-4">
+					<div class="card-body">
+						<div class="col-xl-12 col-md-12 mb-12 pb-2 text-center">
+							<a href="javascript:{}" onclick="$('#createModal').modal('show')" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm my-4" title="Criar">
+								Criar Plano de Carreira
+								<i class="pi pi-plus"></i>
+							</a>
+						</div>
+						<div class="table-responsive">
+							<h:form id="dataTableForm">
+						        <p:dataTable styleClass="table table-bordered" var="careerPath" value="#{careerPathMBean.all}">
+						            <p:column headerText="Nome do Colaborador">
+						                <h:outputText value="#{careerPath.collaborator.name}" />
+						            </p:column>
+						            <p:column headerText="Email do Colaborador">
+						                <h:outputText value="#{careerPath.collaborator.email}" />
+						            </p:column>
+						            <p:column headerText="Permissão">
+						                <h:outputText value="#{careerPath.collaborator.permission.description}" />
+						            </p:column>
+						            <p:column headerText="Área de Atuação">
+						                <h:outputText value="#{careerPath.collaborator.actuationArea.description}" />
+						            </p:column>
+						            <p:column headerText="Nível de Atuação">
+						                <h:outputText value="#{careerPath.actuationLevel.description}" />
+						            </p:column>
+						            <p:column headerText="Editar">
+										<p:commandButton action="#{careerPathMBean.setCareerPath(careerPath)}" update="editForm" oncomplete="$('#editModal').modal('show')" icon="pi pi-pencil" styleClass="ui-button-primary">
+											<f:actionListener binding="#{careerPathMBean.setCollaboratorId(careerPath.collaborator.id)}" />
+											<f:actionListener binding="#{careerPathMBean.setActuationLevelId(careerPath.actuationLevel.id)}" />
+										</p:commandButton>
+						            </p:column>
+						            <p:column headerText="Excluir">
+										<p:commandButton action="#{careerPathMBean.setCareerPath(careerPath)}" update="deleteForm" oncomplete="$('#deleteModal').modal('show')" icon="pi pi-trash" styleClass="ui-button-danger">
+											<f:actionListener binding="#{careerPathMBean.setCollaboratorId(careerPath.collaborator.id)}" />
+											<f:actionListener binding="#{careerPathMBean.setActuationLevelId(careerPath.actuationLevel.id)}" />
+										</p:commandButton>
+						            </p:column>
+						        </p:dataTable>
+							</h:form>
+						</div>
+					</div>
+       			</div>
+				<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModal" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Criar novo plano de carreira</h5>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h:form id="createForm">
+									<p:messages id="validateCreateFormMessage" styleClass="custom"/>
+									<div class="form-group">
+										<p:outputLabel for="collaboratorSelect" value="Collaborator"/>
+										<br />
+						                <p:selectOneMenu id="collaboratorSelect" value="#{careerPathMBean.collaboratorId}" appendTo="@this" required="true">
+						                    <f:selectItems value="#{collaboratorMBean.all}" var="collaborator" itemValue="#{collaborator.id}" itemLabel="#{collaborator.name}" />
+											<p:ajax event="change" update="validateCreateFormMessage createForm" />
+						                </p:selectOneMenu>
+										<p:message for="collaboratorSelect" id="validationCollaboratorMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel for="actuationLevelSelect" value="Nível de Atuação"/>
+										<br />
+						                <p:selectOneMenu id="actuationLevelSelect" value="#{careerPathMBean.actuationLevelId}" appendTo="@this" required="true">
+						                    <f:selectItems value="#{actuationLevelMBean.all}" var="actuationLevel" itemValue="#{actuationLevel.id}" itemLabel="#{actuationLevel.description}" />
+											<p:ajax event="change" update="validateCreateFormMessage createForm" />
+						                </p:selectOneMenu>
+										<p:message for="actuationLevelSelect" id="validationActuationLevelMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group text-center">
+										<button class="btn btn-secondary mr-1" type="button" data-dismiss="modal">Cancelar</button>
+										<p:commandButton action="#{careerPathMBean.create}" update="validateCreateFormMessage createForm dataTableForm" value="Salvar" styleClass="btn btn-primary ml-1" />
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModal" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Editar informações</h5>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h:form id="editForm">
+									<p:messages id="validateUpdateFormMessage" styleClass="custom"/>
+									<div class="form-group">
+										<p:outputLabel for="collaboratorSelect" value="Collaborator"/>
+										<br />
+						                <p:selectOneMenu id="collaboratorSelect" value="#{careerPathMBean.collaboratorId}" appendTo="@this" required="true">
+						                    <f:selectItems value="#{collaboratorMBean.all}" var="collaborator" itemValue="#{collaborator.id}" itemLabel="#{collaborator.name}" />
+											<p:ajax event="change" update="validateUpdateFormMessage editForm" />
+						                </p:selectOneMenu>
+										<p:message for="collaboratorSelect" id="validationColalboratorMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group">
+										<p:outputLabel for="actuationLevelSelect" value="Nível de Atuação"/>
+										<br />
+						                <p:selectOneMenu id="actuationLevelSelect" value="#{careerPathMBean.actuationLevelId}" appendTo="@this" required="true">
+						                    <f:selectItems value="#{actuationLevelMBean.all}" var="actuationLevel" itemValue="#{actuationLevel.id}" itemLabel="#{actuationLevel.description}" />
+											<p:ajax event="change" update="validateUpdateFormMessage editForm" />
+						                </p:selectOneMenu>
+										<p:message for="actuationLevelSelect" id="validationActuationLevelMessage" styleClass="custom"/>
+									</div>
+									<div class="form-group text-center">
+										<button class="btn btn-secondary mr-1" type="button" data-dismiss="modal">Cancelar</button>
+										<p:commandButton action="#{careerPathMBean.update}" update="validateUpdateFormMessage editForm dataTableForm" value="Salvar" styleClass="btn btn-primary ml-1" />
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title">Excluir informações</h5>
+								<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">×</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<h:form id="deleteForm">
+									<p:messages id="validateDeleteFormMessage" styleClass="custom"/>
+									<div class="form-group">
+										<p>Deseja mesmo excluir?</p>
+									</div>
+									<div class="form-group text-center">
+										<button class="btn btn-secondary mr-1" type="button" data-dismiss="modal">Cancelar</button>
+										<p:commandButton action="#{careerPathMBean.delete}" update="validateDeleteFormMessage deleteForm dataTableForm" value="Excluir" styleClass="btn btn-primary ml-1" />
+									</div>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

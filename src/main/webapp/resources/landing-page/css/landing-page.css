@@ -1,0 +1,226 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	font-family: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+.container-loading {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* FF3.6+ */
+    background: -moz-linear-gradient(to right, #254dc0 calc(50% - (100% / 2)), #4e73df calc(50% + (100% / 2)));
+    /* Chrome,Safari4+ */
+    background: -webkit-gradient(linear, left right, left right, color-stop(calc(50% - (100% / 2)), #254dc0), color-stop(calc(50% + (100% / 2)), #4e73df));
+    /* Chrome10+,Safari5.1+ */
+    background: -webkit-linear-gradient(to right, #254dc0 calc(50% - (100% / 2)), #4e73df calc(50% + (100% / 2)));
+    /* Opera 11.10+ */
+    background: -o-linear-gradient(to right, #254dc0 calc(50% - (100% / 2)), #4e73df calc(50% + (100% / 2)));
+    /* IE10+ */
+    background: -ms-linear-gradient(to right, #254dc0 calc(50% - (100% / 2)), #4e73df calc(50% + (100% / 2)));
+    /* W3C */
+    background: linear-gradient( to right, #254dc0 calc(50% - (100% / 2)), #4e73df calc(50% + (100% / 2)));
+}
+
+.container-loading .text {
+    text-align: center;
+}
+
+.container-loading .text .text-char {
+    display: inline-block;
+    margin: 0 5px;
+    color: #ffffff;
+    -webkit-filter: blur(0px);
+    -moz-filter: blur(0px);
+    -ms-filter: blur(0px);
+    -o-filter: blur(0px);
+    filter: blur(0px);
+}
+
+.container-loading .text .text-char[data-time="00"] {
+    -webkit-animation: blur 1s 0s infinite linear alternate;
+    -moz-animation: blur 1s 0s infinite linear alternate;
+    -o-animation: blur 1s 0s infinite linear alternate;
+    -ms-transition: blur 1s 0s infinite linear alternate;
+    animation: blur 1s 0s infinite linear alternate;
+}
+
+.container-loading .text .text-char[data-time="02"] {
+    -webkit-animation: blur 1s 0.1s infinite linear alternate;
+    -moz-animation: blur 1s 0.1s infinite linear alternate;
+    -o-animation: blur 1s 0.1s infinite linear alternate;
+    -ms-transition: blur 1s 0.1s infinite linear alternate;
+    animation: blur 1s 0.1s infinite linear alternate;
+}
+
+.container-loading .text .text-char[data-time="04"] {
+    -webkit-animation: blur 1s 0.2s infinite linear alternate;
+    -moz-animation: blur 1s 0.2s infinite linear alternate;
+    -o-animation: blur 1s 0.2s infinite linear alternate;
+    -ms-transition: blur 1s 0.2s infinite linear alternate;
+    animation: blur 1s 0.2s infinite linear alternate;
+}
+
+.container-loading .text .text-char[data-time="06"] {
+    -webkit-animation: blur 1s 0.3s infinite linear alternate;
+    -moz-animation: blur 1s 0.3s infinite linear alternate;
+    -o-animation: blur 1s 0.3s infinite linear alternate;
+    -ms-transition: blur 1s 0.3s infinite linear alternate;
+    animation: blur 1s 0.3s infinite linear alternate;
+}
+
+.container-loading .text .text-char[data-time="08"] {
+    -webkit-animation: blur 1s 0.4s infinite linear alternate;
+    -moz-animation: blur 1s 0.4s infinite linear alternate;
+    -o-animation: blur 1s 0.4s infinite linear alternate;
+    -ms-transition: blur 1s 0.4s infinite linear alternate;
+    animation: blur 1s 0.4s infinite linear alternate;
+}
+
+.container-loading .text .text-char[data-time="10"] {
+    -webkit-animation: blur 1s 0.5s infinite linear alternate;
+    -moz-animation: blur 1s 0.5s infinite linear alternate;
+    -o-animation: blur 1s 0.5s infinite linear alternate;
+    -ms-transition: blur 1s 0.5s infinite linear alternate;
+    animation: blur 1s 0.5s infinite linear alternate;
+}
+
+.container-loading .text .text-char[data-time="12"] {
+    -webkit-animation: blur 1s 0.6s infinite linear alternate;
+    -moz-animation: blur 1s 0.6s infinite linear alternate;
+    -o-animation: blur 1s 0.6s infinite linear alternate;
+    -ms-transition: blur 1s 0.6s infinite linear alternate;
+    animation: blur 1s 0.6s infinite linear alternate;
+}
+
+@-webkit-keyframes blur {
+    0% {}
+    100% {
+        -webkit-filter: blur(3px);
+    }
+}
+
+@-moz-keyframes blur {
+    0% {}
+    100% {
+        -moz-filter: blur(3px);
+    }
+}
+
+@-o-keyframes blur {
+    0% {}
+    100% {
+        -o-filter: blur(3px);
+    }
+}
+
+@-ms-keyframes blur {
+    0% {}
+    100% {
+        -ms-filter: blur(3px);
+    }
+}
+
+@keyframes blur {
+    0% {}
+    100% {
+        filter: blur(3px);
+    }
+}
+
+.container-fluid.main{
+	padding: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	background-color: #254dc0;
+}
+
+.container-fluid.main .content {
+	position: absolute; /* To make the div to be place anywhere. It is out of the document flow */
+	top: 200px; /* The distance between the div with the top of document */
+	left: 0px; /* Make the div full width */
+	right: 0px; /* Make the div full width */
+}
+
+
+.container-fluid.main .content .container-text {
+	float: none;
+	margin: 0 auto;
+}
+
+.container-fluid.main .content .container-text .title {
+	font-weight: 600;
+	font-size: 60px;
+	color: #ffffff;
+	text-align: center;
+}
+
+.container-fluid.main .content .container-text .subtitle {
+	font-size: 23px;
+	color: #ffffff;
+	text-align: center;
+}
+
+.container-fluid.main .content .container-button {
+	text-align: center;
+	margin-top: 50px;
+}
+
+.container-fluid.main .content .container-button .btn {
+    cursor: pointer;
+    font-size: .8rem;
+    border-radius: 10rem;
+    padding: 0.75rem 1rem;
+    display: block;
+    width: 100%;
+    color: #fff;
+    background-color: #4e73df;
+    border-color: #4e73df;
+    font-weight: 400;
+    text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    line-height: 1.5;
+    opacity: 0.7;
+	text-decoration: none;
+    width: 150px;
+    margin: 0 auto;
+    -webkit-transition: opacity 500ms ease-in-out;
+    -moz-transition: opacity 500ms ease-in-out;
+    -o-transition: opacity 500ms ease-in-out;
+    -ms-transition: opacity 500ms ease-in-out;
+    transition: opacity 500ms ease-in-out;
+}
+
+
+.container-fluid.main .content .container-button .btn:hover {
+	opacity: 1;
+}
+
+.ui-steps.custom .ui-steps-item.ui-state-highlight .ui-steps-number, .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-number{
+    background-color: #ffffff;
+}
+
+.ui-steps.custom .ui-steps-item.ui-state-highlight .ui-steps-title, .ui-steps.custom .ui-steps-item .ui-menuitem-link .ui-steps-title{
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.ui-steps.custom .ui-steps-item:not(.ui-state-highlight) {
+	opacity: 1;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/templateLandingPage.xhtml">
+	<ui:define name="title">
+		Plano de Carreira - Welcome
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="container-loading">
+			<div class="text">
+				<span class="text-char" data-time="00">L</span>
+				<span class="text-char" data-time="02">O</span>
+				<span class="text-char" data-time="04">A</span>
+				<span class="text-char" data-time="06">D</span>
+				<span class="text-char" data-time="08">I</span>
+				<span class="text-char" data-time="10">N</span>
+				<span class="text-char" data-time="12">G</span>
+			</div>
+		</div>
+	
+		<div class="container-fluid main">
+			<div class="content">
+				<div class="container-text">
+					<h1 class="title">Plano de Carreira</h1>
+					<h3 class="subtitle">Criei e acompanhe o plano de carreira da sua empresa!</h3>
+				</div>
+				<p:steps styleClass="custom">
+			        <p:menuitem value="Crie os colaboradores" />
+			        <p:menuitem value="Crie os objetivos"/>
+			        <p:menuitem value="Acompanhe os objetivos"/>
+			        <p:menuitem value="Aproveite o plano de carreira"/>
+			    </p:steps>
+				<div class="container-button">
+					<p:link class="btn" outcome="login" value="Fazer login"></p:link>
+				</div>
+			</div>
+		</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+	<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">		
+		<p:link styleClass="sidebar-brand d-flex align-items-center justify-content-center custom" outcome="dashboard">
+			<div class="sidebar-brand-icon rotate-n-15">
+				<i class="pi pi-bolt"></i>
+			</div>
+			<div class="sidebar-brand-text mx-3">PDC</div>
+		</p:link>
+
+		<hr class="sidebar-divider my-0" />
+
+		<li class="nav-item active">
+			<p:link styleClass="nav-link custom" outcome="dashboard">
+				<i class="pi pi-chart-bar"></i>
+				<span>Dashboard</span>
+			</p:link>
+			<p:link styleClass="nav-link custom" outcome="permission">
+				<i class="pi pi-lock"></i>
+				<span>Permissões</span>
+			</p:link>
+			<p:link styleClass="nav-link custom" outcome="actuationArea">
+				<i class="pi pi-list"></i>
+				<span>Área de Atuação</span>
+			</p:link>
+			<p:link styleClass="nav-link custom" outcome="actuationLevel">
+				<i class="pi pi-list"></i>
+				<span>Nível de Atuação</span>
+			</p:link>
+			<p:link styleClass="nav-link custom" outcome="collaborator">
+				<i class="pi pi-user"></i>
+				<span>Colaborador</span>
+			</p:link>
+			<p:link styleClass="nav-link custom" outcome="careerPath">
+				<i class="pi pi-sitemap"></i>
+				<span>Plano de Carreira</span>
+			</p:link>
+			<p:link styleClass="nav-link custom" outcome="checkpoint">
+				<i class="pi pi-tags"></i>
+				<span>Objetivo</span>
+			</p:link>
+		</li>
+
+		<hr class="sidebar-divider d-none d-md-block" />
+
+		<div class="sidebar-card d-none d-lg-flex">
+			<p class="text-center mb-2">Esperamos que esteja gostando da experiência com o <strong>PDC</strong>.</p>
+		</div>
+	</ul>
+</h:body>
+
+</html>
